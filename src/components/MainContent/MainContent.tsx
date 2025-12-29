@@ -79,12 +79,7 @@ export function MainContent() {
         </div>
 
         <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-5">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="border p-2 rounded">
-              <h2 className="font-bold">{product.title}</h2>
-              <p>${product.price}</p>
-            </div>
-          ))}
+         
         </div>
       </div>
     </section>
