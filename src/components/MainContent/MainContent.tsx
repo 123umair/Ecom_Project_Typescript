@@ -4,7 +4,8 @@ import axios from "axios";
 import { Tally3 } from "lucide-react";
 
 export function MainContent() {
-  const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } = useFilter();
+  const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
+    useFilter();
 
   const [products, setProducts] = useState<any[]>([]);
   const [filter, setFilter] = useState<string>("all");
@@ -14,7 +15,9 @@ export function MainContent() {
   const itemsPerpage = 12;
 
   useEffect(() => {
-    let url = `https://dummyjson.com/products?limit=${itemsPerpage}&skip=${(currentPage - 1) * itemsPerpage}`;
+    let url = `https://dummyjson.com/products?limit=${itemsPerpage}&skip=${
+      (currentPage - 1) * itemsPerpage
+    }`;
     if (keyword) {
       url = `https://dummyjson.com/products/search?q=${keyword}`;
     }
@@ -33,8 +36,31 @@ export function MainContent() {
   const getFilteredProducts = () => {
     let filteredProducts = products;
     if (selectedCategory) {
-      filteredProducts = filteredProducts.filter((product) => product.category === selectedCategory);
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === selectedCategory
+      );
+      console.log(filteredProducts, "filterproducts");
     }
+
+    if (minPrice != undefined) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.price >= minPrice
+      );
+      console.log(filteredProducts, "filterProducts");
+    }
+
+    if (maxPrice != undefined) {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.price <= maxPrice
+      );
+      console.log(filteredProducts, "filterProducts");
+    }
+
+    if (searchQuery)
+    {
+      filteredProducts = filteredProducts.filter(product => product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    }
+    
 
     return filteredProducts;
   };
@@ -48,7 +74,9 @@ export function MainContent() {
           <div className="relative mb-5 mt-5">
             <button className="border px-4 py-2 rounded-full flex items-center cursor-pointer ">
               <Tally3 className="mr-2" />
-              {filter === "all" ? "Filter" : filter.charAt(0).toLowerCase() + filter.slice(1)}
+              {filter === "all"
+                ? "Filter"
+                : filter.charAt(0).toLowerCase() + filter.slice(1)}
             </button>
             {dropdownOpen && (
               <div className="absolute bg-white border-gray-300 rounded mt-2 w-full sm:w-40 ">
@@ -77,9 +105,7 @@ export function MainContent() {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-5">
-         
-        </div>
+        <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-5"></div>
       </div>
     </section>
   );
