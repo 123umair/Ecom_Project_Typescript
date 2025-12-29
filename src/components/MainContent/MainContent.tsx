@@ -34,7 +34,6 @@ export function MainContent() {
     let filteredProducts = products;
     if (selectedCategory) {
       filteredProducts = filteredProducts.filter((product) => product.category === selectedCategory);
-      console.log(filteredProducts, "filtered by category");
     }
 
     return filteredProducts;
