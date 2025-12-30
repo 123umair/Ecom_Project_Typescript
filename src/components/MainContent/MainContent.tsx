@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useFilter } from "../FilterContext/FilterContext";
 import axios from "axios";
 import { Tally3 } from "lucide-react";
+import { BookCard } from "../BookCard/BookCart";
 
 export function MainContent() {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
@@ -56,17 +57,44 @@ export function MainContent() {
       console.log(filteredProducts, "filterProducts");
     }
 
-    if (searchQuery)
-    {
-      filteredProducts = filteredProducts.filter(product => product.title.toLowerCase().includes(searchQuery.toLowerCase()))
+    if (searchQuery) {
+      filteredProducts = filteredProducts.filter((product) =>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
-    
 
-    return filteredProducts;
+    switch (filter) {
+      case "expensive":
+        return filteredProducts.sort((a, b) => b.price - a.price);
+
+      case "cheap":
+        return filteredProducts.sort((a, b) => b.price - a.price);
+
+      case "popular":
+        return filteredProducts.sort((a, b) => b.price - a.price);
+
+      default:
+        return filteredProducts;
+    }
   };
 
   const filteredProducts = getFilteredProducts();
+ 
 
+  const totalProducts = 100;
+
+
+  const totalPages = Math.ceil(totalProducts / itemsPerpage)
+
+
+  const handlePageChange = (page: number) => {
+
+ if (page > 0 && page <= totalPages)
+ {
+  setCurrentPage(page);
+ }
+
+  }
   return (
     <section className="xl:w-[55rem] lg:w-[55rem] sm:w-[40rem] xs:w-[20rem] p-5">
       <div className="mb-5">
@@ -105,7 +133,39 @@ export function MainContent() {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-5"></div>
+        <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-5">
+          {filteredProducts.map((product) => (
+            <BookCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              image={product.thumbnail}
+              price={product.price}
+            />
+          ))}
+        </div>
+      </div>
+
+
+
+      <div className="flex flex-col sm:flex-row justify-between items-center mt-5">
+            {/* previous */}
+            <button onClick={() => handlePageChange(currentPage - 1) }
+              
+              disabled = {currentPage === 1}
+               className="border px-4 py-2 mx-2 rounded-full"
+              >
+              Previous
+            </button>
+          {/* 1,2,3,4,5  */}
+
+
+          {/* next */}
+
+            <button onClick={() => handlePageChange(currentPage + 1)
+            } disabled={currentPage === totalPages} className="border px-4 py-2 mx-2 rounded-full">
+              Next
+            </button>
       </div>
     </section>
   );
