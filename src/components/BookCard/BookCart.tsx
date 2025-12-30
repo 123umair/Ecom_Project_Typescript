@@ -28,4 +28,9 @@ export const BookCard: React.FC<BookCardProps> = ({
       </Link>
     </div>
   );
+
+
+
+
+  
 };
