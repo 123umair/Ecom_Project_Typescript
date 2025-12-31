@@ -22,6 +22,9 @@ export const BookCard: React.FC<BookCardProps> = ({
           src={image}
           alt={title}
           className="w-full h-32 object-cover mb-2"
+        
+        
+        
         />
 
         <h2 className="font-bold">{title}</h2>
