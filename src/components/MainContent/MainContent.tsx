@@ -79,6 +79,20 @@ export function MainContent() {
   };
 
   const filteredProducts = getFilteredProducts();
+ 
+
+  const totalProducts = 100;
+
+
+  const totalPages = Math.ceil(totalProducts / itemsPerpage)
+
+
+  const handlePageChange = (page: number) => {
+
+ if (page > 0 && page <= totalPages)
+ {
+  setCurrentPage(page);
+ }
 
   const totalProducts = 100;
 
