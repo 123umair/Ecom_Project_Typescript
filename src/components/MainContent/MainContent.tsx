@@ -14,6 +14,8 @@ export function MainContent() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const itemsPerpage = 12;
+  const totalProducts = 100;
+  const totalPages = Math.ceil(totalProducts / itemsPerpage);
 
   useEffect(() => {
     let url = `https://dummyjson.com/products?limit=${itemsPerpage}&skip=${
@@ -33,28 +35,25 @@ export function MainContent() {
       });
   }, [currentPage, keyword]);
 
-  // Filter products based on category
   const getFilteredProducts = () => {
     let filteredProducts = products;
+
     if (selectedCategory) {
       filteredProducts = filteredProducts.filter(
         (product) => product.category === selectedCategory
       );
-      console.log(filteredProducts, "filterproducts");
     }
 
     if (minPrice != undefined) {
       filteredProducts = filteredProducts.filter(
         (product) => product.price >= minPrice
       );
-      console.log(filteredProducts, "filterProducts");
     }
 
     if (maxPrice != undefined) {
       filteredProducts = filteredProducts.filter(
         (product) => product.price <= maxPrice
       );
-      console.log(filteredProducts, "filterProducts");
     }
 
     if (searchQuery) {
@@ -66,37 +65,16 @@ export function MainContent() {
     switch (filter) {
       case "expensive":
         return filteredProducts.sort((a, b) => b.price - a.price);
-
       case "cheap":
-        return filteredProducts.sort((a, b) => b.price - a.price);
-
+        return filteredProducts.sort((a, b) => a.price - b.price);
       case "popular":
         return filteredProducts.sort((a, b) => b.price - a.price);
-
       default:
         return filteredProducts;
     }
   };
 
   const filteredProducts = getFilteredProducts();
- 
-
-  const totalProducts = 100;
-
-
-  const totalPages = Math.ceil(totalProducts / itemsPerpage)
-
-
-  const handlePageChange = (page: number) => {
-
- if (page > 0 && page <= totalPages)
- {
-  setCurrentPage(page);
- }
-
-  const totalProducts = 100;
-
-  const totalPages = Math.ceil(totalProducts / itemsPerpage);
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
@@ -104,47 +82,38 @@ export function MainContent() {
     }
   };
 
-
   const getPaginationButtons = () => {
+    const buttons: number[] = [];
 
-    const buttons: number[] = []
-    
-    let startPage: number = Math.max(1,currentPage - 2)
+    let startPage: number = Math.max(1, currentPage - 2);
+    let endPage: number = Math.min(totalPages, currentPage + 2);
 
-    let endPage: number = Math.min(totalPages, currentPage + 2)
-
-
-    if (currentPage - 2 < 1)
-    {
-      endPage = Math.min(totalPages, endPage + (2 - currentPage - 1))
+    if (currentPage - 2 < 1) {
+      endPage = Math.min(totalPages, endPage + (2 - currentPage - 1));
     }
 
-    if (currentPage + 2 > totalPages)
-      {
-        startPage = Math.min(1, startPage - (2 - totalPages - currentPage))
-      }
+    if (currentPage + 2 > totalPages) {
+      startPage = Math.max(1, startPage - (2 - totalPages - currentPage));
+    }
 
     for (let page = startPage; page <= endPage; page++) {
-      
-      buttons.push(page)
-
+      buttons.push(page);
     }
 
-    return buttons
+    return buttons;
+  };
 
-
-  }
   return (
-    <section className="xl:w-[55rem] lg:w-[55rem] sm:w-[40rem] xs:w-[20rem] p-5">
+    <section className="xl:w-[55rem] mr-40 lg:w-[55rem] sm:w-[40rem] xs:w-[20rem] p-5">
       <div className="mb-5">
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <div className="relative mb-5 mt-5">
-            <button 
-
-             className="border px-4 py-2 rounded-full flex items-center cursor-pointer"
-             
-             onClick={()=>{setDropdownOpen(!dropdownOpen)}}
-             >
+            <button
+              className="border px-4 py-2 rounded-full flex items-center cursor-pointer"
+              onClick={() => {
+                setDropdownOpen(!dropdownOpen);
+              }}
+            >
               <Tally3 className="mr-2" />
               {filter === "all"
                 ? "Filter"
@@ -200,19 +169,21 @@ export function MainContent() {
           Previous
         </button>
         {/* 1,2,3,4,5  */}
-
         <div className="flex flex-wrap justify-center">
-          {
-            getPaginationButtons().map(page => (
-              <button key={page} onClick={() => handlePageChange(page)} className={`border px-4 py-2 mx-1 rounded-full ${ page === currentPage ? "bg-black text-white" :""}`}> 
+          {getPaginationButtons().map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`border px-4 py-2 mx-1 rounded-full ${
+                page === currentPage ? "bg-black text-white" : ""
+              }`}
+            >
               {page}
-               </button>
-            ))
-          }
+            </button>
+          ))}
         </div>
 
         {/* next */}
-
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}

@@ -77,7 +77,7 @@ const Sidebar = () => {
         
         type="text" 
 
-        className="border-2 rounded px-2 sm:mb-0"
+        className="border-2 rounded px-2 py-3 sm:mb-0"
 
         placeholder="Search Product" 
 
