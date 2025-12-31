@@ -25,6 +25,7 @@ export const BookCard: React.FC<BookCardProps> = ({
         />
 
         <h2 className="font-bold">{title}</h2>
+         
       </Link>
     </div>
   );
