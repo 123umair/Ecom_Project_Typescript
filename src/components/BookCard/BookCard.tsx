@@ -17,14 +17,11 @@ export const BookCard: React.FC<BookCardProps> = ({
 }) => {
   return (
     <div className="border p-4 rounded">
-      <Link to={`/products/${id}`}>
+      <Link to={`/product/${id}`}>
         <img
           src={image}
           alt={title}
           className="w-full h-32 object-cover mb-2"
-        
-        
-        
         />
 
         <h2 className="font-bold">{title}</h2>
