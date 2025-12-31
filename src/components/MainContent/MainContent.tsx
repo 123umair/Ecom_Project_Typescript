@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useFilter } from "../FilterContext/FilterContext";
 import axios from "axios";
 import { Tally3 } from "lucide-react";
-import { BookCard } from "../BookCard/BookCart";
+import { BookCard } from "../BookCard/BookCard";
 
 export function MainContent() {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
