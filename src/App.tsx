@@ -1,38 +1,38 @@
-import { BrowserRouter as Router , Routes , Route } from 'react-router-dom'
-import Sidebar from './components/Sidebar/Sidebar'
-import { MainContent } from './components/MainContent/MainContent'
-import './App.css'
-import { ProductPage } from './components/ProductPage/ProductPage'
-import { TopSellers } from './components/TopSellers/TopSellers'
-import { PopularBlogs } from './components/PopularBlogs/PopularBlogs'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar/Sidebar";
+import { MainContent } from "./components/MainContent/MainContent";
+import { ProductPage } from "./components/ProductPage/ProductPage";
+import { TopSellers } from "./components/TopSellers/TopSellers";
+import { PopularBlogs } from "./components/PopularBlogs/PopularBlogs";
+import "./App.css";
 
 function App() {
+  return (
+    <Router>
+      <div className="flex h-screen overflow-hidden">
 
-  return <Router>
-    <div className="flex h-screen">
-  
-      <Sidebar />
-  
-  
-        <div className="rounded w-full flex justify-center flex-wrap">
-      <Routes>
+        {/* Sidebar */}
+        <Sidebar />
 
-        <Route path="/" element={<MainContent />} />
+        {/* Main Section */}
+        <div className="flex flex-col  overflow-y-auto p-4 md:p-6">
 
-        <Route path="/product/:id" element={<ProductPage />} />
-      
-      </Routes>
+          {/* Routes */}
+          <Routes>
+            <Route path="/" element={<MainContent />} />
+            <Route path="/product/:id" element={<ProductPage />} />
+          </Routes>
 
+          {/* Bottom Widgets */}
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <TopSellers />
+            <PopularBlogs />
+          </div>
 
-      <div>
-        <TopSellers></TopSellers>
-        <PopularBlogs /> 
+        </div>
       </div>
-    </div>
-    </div>
-
-  
-  </Router>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -104,9 +104,9 @@ export function MainContent() {
   };
 
   return (
-    <section className="xl:w-[55rem] mr-40 lg:w-[55rem] sm:w-[40rem] xs:w-[20rem] p-5">
+    <section className="xl:w-[55rem] mr-20 md:mr-40 lg:w-[55rem] sm:w-[40rem] xs:w-[20rem] md:p-5 -p-1">
       <div className="mb-5">
-        <div className="flex flex-col sm:flex-row justify-between items-center">
+        <div className="flex  sm:flex-col justify-between items-center">
           <div className="relative mb-5 mt-5">
             <button
               className="border px-4 py-2 rounded-full flex items-center cursor-pointer"
@@ -146,25 +146,34 @@ export function MainContent() {
           </div>
         </div>
 
-        <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 gap-5">
-          {filteredProducts.map((product) => (
-            <BookCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              image={product.thumbnail}
-              price={product.price}
-            />
-          ))}
-        </div>
+        <div className="
+  grid 
+  grid-cols-1 
+  sm:grid-cols-2 
+  md:grid-cols-3 
+  lg:grid-cols-4 
+  gap-4 sm:gap-5
+  w-full
+">
+  {filteredProducts.map((product) => (
+    <BookCard
+      key={product.id}
+      id={product.id}
+      title={product.title}
+      image={product.thumbnail}
+      price={product.price}
+    />
+  ))}
+</div>
+
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-between items-center mt-5">
+      <div className="flex flex-col sm:flex-row justify-center md:justify-between items-center mt-5">
         {/* previous */}
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="border px-4 py-2 mx-2 rounded-full"
+          className="border px-2 md:px-4 py-2 mx-2 rounded-full"
         >
           Previous
         </button>
