@@ -50,13 +50,13 @@ export const TopSellers = () => {
   };
 
   return (
-    <div className="bg-white p-4 mx-1 mt-20 border w-65 rounded">
+    <div className="bg-white p-5 ml-5 mt-4 border md:w-92 rounded ">
       <h2 className="text-xl font-bold mb-5">Top Sellers</h2>
 
       <ul>
         {authors.map((author, index) => (
-          <li key={index} className="flex items-center justify-between mb-4">
-            <section className="flex justify-center items-center">
+          <li key={index} className="flex items-center justify-between mb-4 flex-col gap-2 p-4 md:flex-row">
+            <section className="flex flex-col md:flex-row justify-center items-center">
               <img
                 src={author.image}
                 alt={author.name}
@@ -66,8 +66,9 @@ export const TopSellers = () => {
               <span className="ml-4"> {author.name} </span>
             </section>
 
-            <button
-              className={`py-1 px-3 rounded ${
+           
+           <button
+              className={`py-1 px-3 rounded   ${
                 author.isFollowing
                   ? "bg-red-500 text-white"
                   : "bg-black text-white"
@@ -76,6 +77,9 @@ export const TopSellers = () => {
             >
               {author.isFollowing ? "Unfollow" : "Follow"}
             </button>
+           
+           
+           
           </li>
         ))}
       </ul>
